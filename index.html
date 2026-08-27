@@ -1,115 +1,32 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohit-AI Advanced Cloud Data Engine</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
-        .container { max-width: 950px; margin: auto; background: #1e293b; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        h1 { text-align: center; color: #38bdf8; margin-bottom: 5px; }
-        p.subtitle { text-align: center; color: #94a3b8; margin-bottom: 25px; }
-        .config-box { background: #334155; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .config-box select { background: #0f172a; color: #38bdf8; border: 1px solid #475569; padding: 8px; border-radius: 6px; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .category-card { background: #334155; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; border: 2px solid transparent; }
-        .category-card:hover { background: #475569; border-color: #38bdf8; }
-        .category-card input { margin-right: 10px; transform: scale(1.2); }
-        button { background: #2563eb; color: white; border: none; padding: 14px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #1d4ed8; }
-        .progress-box { margin-top: 25px; background: #0f172a; padding: 15px; border-radius: 8px; display: none; }
-        .progress-bar-container { background: #334155; border-radius: 6px; height: 20px; width: 100%; overflow: hidden; margin-top: 10px; }
-        .progress-bar { background: #22c55e; height: 100%; width: 0%; transition: width 0.3s ease; }
-        .stats { display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; color: #cbd5e1; }
-        .status-msg { margin-top: 15px; text-align: center; font-weight: bold; }
-    </style>
+    <title>Rohit-AI Data Control Center</title>
 </head>
-<body>
-    <div class="container">
-        <h1>Rohit-AI Advanced Cloud Data Engine</h1>
-        <p class="subtitle">डायनेमिक फ्रेश डेटा फेचर, टोकन स्केलर और गूगल ड्राइव ऑटो-सिंक (0% Mobile Data)</p>
-        
-        <div class="config-box">
-            <span>डेटा वॉल्यूम और टोकन साइज़ चुनें:</span>
-            <select id="dataVolume">
-                <option value="small">मीडियम डेटा (~50,000 टोकन्स)</option>
-                <option value="medium" selected>बड़ा डेटा (~2,50,000 टोकन्स)</option>
-                <option value="massive">मेगा डेटा (1 Million+ Tokens - Heavy)</option>
-            </select>
-        </div>
+<body style="font-family: Arial; padding: 30px; background: #0f172a; color: #fff;">
+    <h1>🚀 Rohit-AI Cloud Data Collection Engine</h1>
+    <p>Select your target dataset category to fetch raw data via Cloud Actions (0% Mobile Data Consumed):</p>
+    
+    <label for="categorySelect"><b>Choose Dataset Category:</b></label><br><br>
+    <select id="categorySelect" style="padding: 10px; font-size: 16px; border-radius: 5px;">
+        <option value="trading">Algorithmic & Stock Market Trading</option>
+        <option value="python">Python Development & AI Libraries</option>
+        <option value="csharp">C# & Unity Game Engine Architecture</option>
+    </select>
+    <br><br>
+    
+    <button onclick="triggerCollection()" style="padding: 12px 25px; background: #22c55e; color: white; font-weight: bold; border: none; border-radius: 5px; cursor: pointer;">
+        ⚡ Fetch Raw Data Now
+    </button>
 
-        <h3>12 मास्टर कैटेगरीज (हर बार नया और अलग रॉ डेटा):</h3>
-        <div class="grid" id="categoryGrid"></div>
-
-        <button onclick="startAdvancedCollection()">क्लाउड पर नया फ्रेश डेटा फेच करना शुरू करें</button>
-
-        <div class="progress-box" id="progressBox">
-            <div>क्लाउड सर्वर से नया रॉ डेटा खींचा जा रहा है और स्कैनिंग जारी है...</div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="stats">
-                <span id="progressText">प्रगति: 0%</span>
-                <span id="sizeText">साइज: 0 MB</span>
-                <span id="tokenText">टोकन्स: 0</span>
-            </div>
-            <div class="status-msg" id="statusMsg" style="color: #38bdf8;">डेटा की शुद्धता और डुप्लीकेट चेकिंग हो रही है...</div>
-        </div>
-    </div>
+    <p id="statusMsg" style="margin-top: 20px; font-style: italic;"></p>
 
     <script>
-        const categories = [
-            "C# Core & Advanced", "Unity Game Engine", "Visual Studio & Tools", 
-            "Trading & Finance Data", "Python & Automation", "Data Structures & Algos", 
-            "System Architecture", "Machine Learning Base", "Web Technologies", 
-            "Database & SQL", "Security & Encryption", "General Technical Docs"
-        ];
-
-        const grid = document.getElementById('categoryGrid');
-        categories.forEach((cat, index) => {
-            grid.innerHTML += `
-                <label class="category-card">
-                    <input type="checkbox" value="cat_${index+1}" checked> ${cat}
-                </label>
-            `;
-        });
-
-        function startAdvancedCollection() {
-            document.getElementById('progressBox').style.display = 'block';
-            let volume = document.getElementById('dataVolume').value;
-            let targetTokens = volume === 'small' ? 50000 : (volume === 'medium' ? 250000 : 1000000);
-            let targetSize = volume === 'small' ? 45 : (volume === 'medium' ? 180 : 750);
-
-            let progress = 0;
-            let currentSize = 0;
-            let currentTokens = 0;
-            
-            const bar = document.getElementById('progressBar');
-            const pText = document.getElementById('progressText');
-            const sText = document.getElementById('sizeText');
-            const tText = document.getElementById('tokenText');
-            const msg = document.getElementById('statusMsg');
-
-            let interval = setInterval(() => {
-                progress += 4;
-                currentSize += (targetSize / 25);
-                currentTokens += Math.floor(targetTokens / 25);
-
-                if (progress > 100) progress = 100;
-                if (currentSize > targetSize) currentSize = targetSize;
-                if (currentTokens > targetTokens) currentTokens = targetTokens;
-
-                bar.style.width = progress + '%';
-                pText.innerText = `प्रगति: ${progress}%`;
-                sText.innerText = `साइज: ${currentSize.toFixed(1)} MB`;
-                tText.innerText = `टोकन्स: ${currentTokens.toLocaleString()}`;
-
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    msg.innerHTML = `🎉 शानदार! ${targetTokens.toLocaleString()} टोकन्स का एकदम नया और अलग फ्रेश डेटा सफलतापूर्वक स्कैन होकर आपके Google Drive में सेव हो गया है!`;
-                    msg.style.color = "#22c55e";
-                }
-            }, 250);
+        function triggerCollection() {
+            const selectedCat = document.getElementById('categorySelect').value;
+            document.getElementById('statusMsg.innerHTML = "🚀 Triggering GitHub Action for category: " + selectedCat + " ...";');
+            alert("Data collection request for [" + selectedCat + "] is ready! Go to GitHub Actions to run the engine.");
         }
     </script>
 </body>
