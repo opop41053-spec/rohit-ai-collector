@@ -42,13 +42,13 @@ jobs:
               f.write('Categories: C#, Python, Unity, Finance, Data Structures, Web Tech, etc.\n')
               f.write('Status: 100% Clean, Verified & Synchronized successfully!')
 
-          print('📁 [Google Drive] Authenticating and uploading to folder ID: 1bjOz466yqvgPOMq0tpmCcS_iknJrkdcj')
+          print('📁 [Google Drive] Authenticating and uploading to new shared folder ID: 1HRlNp3QsJlmOyRWwADR6jt_BIhv8CnBI')
           
           SCOPES = ['https://www.googleapis.com/auth/drive']
           creds = service_account.Credentials.from_service_account_file('service_account.json', scopes=SCOPES)
           service = build('drive', 'v3', credentials=creds)
 
-          folder_id = '1bjOz466yqvgPOMq0tpmCcS_iknJrkdcj'
+          folder_id = '1HRlNp3QsJlmOyRWwADR6jt_BIhv8CnBI'
           
           file_metadata = {
               'name': filename,
