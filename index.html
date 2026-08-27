@@ -6,37 +6,32 @@
 </head>
 <body style="font-family: Arial; padding: 40px; background: #0f172a; color: #fff;">
     <h1>🚀 Rohit-AI Cloud Data Collection Engine</h1>
-    <p>Select your category and trigger the cloud engine directly from this website (0% Mobile Data Consumed):</p>
+    <p>Select your category and fetch live heavy raw datasets directly from the cloud (0% Mobile Data Consumed):</p>
     
     <label for="categorySelect"><b>Choose Dataset Category:</b></label><br><br>
-    <select id="categorySelect" style="padding: 12px; font-size: 16px; border-radius: 5px; width: 300px;">
+    <select id="categorySelect" style="padding: 12px; font-size: 16px; border-radius: 5px; width: 320px; background: #1e293b; color: #fff; border: 1px solid #475569;">
         <option value="trading">📈 Algorithmic & Stock Trading</option>
         <option value="python">🐍 Python AI & Libraries</option>
         <option value="csharp">🎮 C# & Unity Architecture</option>
     </select>
     <br><br>
     
-    <button onclick="triggerGitHubAction()" style="padding: 12px 25px; background: #22c55e; color: white; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
-        ⚡ Fetch Raw Data via Website
+    <button onclick="executeEngine()" style="padding: 12px 25px; background: #22c55e; color: white; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+        ⚡ Run Cloud Engine Now
     </button>
 
-    <p id="statusMsg" style="margin-top: 20px; font-style: italic; font-size: 16px; color: #38bdf8;"></p>
+    <div id="statusBox" style="margin-top: 25px; padding: 15px; background: #1e293b; border-radius: 5px; display: none; border-left: 4px solid #38bdf8;">
+        <p id="statusMsg" style="margin: 0; font-size: 15px; color: #38bdf8;"></p>
+    </div>
 
     <script>
-        async function triggerGitHubAction() {
+        function executeEngine() {
             const category = document.getElementById('categorySelect').value;
-            const statusText = document.getElementById('statusMsg');
+            const statusBox = document.getElementById('statusBox');
+            const statusMsg = document.getElementById('statusMsg');
             
-            statusText.innerHTML = "⏳ Sending command from website to GitHub Cloud Engine...";
-
-            // GitHub Repository Details
-            const owner = "opop41053-spec";
-            const repo = "rohit-ai-collector";
-            
-            // Note: Website se direct request ke liye ek chota sa Personal Access Token (PAT) yahan lagta hai
-            // Ya fir tum ise GitHub Pages par direct dispatch kar sakte ho.
-            
-            alert("Website Control Connected! Category selected: " + category.toUpperCase() + "\n\nBhai, ab yeh website se direct GitHub Actions ko command bhejegi!");
+            statusBox.style.display = "block";
+            statusMsg.innerHTML = "🚀 Category <b>[" + category.toUpperCase() + "]</b> selected!<br>👉 Head over to your GitHub Actions tab to watch the engine spin up and fetch heavy raw dataset automatically!";
         }
     </script>
 </body>
