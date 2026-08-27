@@ -17,6 +17,7 @@ jobs:
 
       - name: Install Secure Dependencies & Drive Client
         run: |
+          pip install --upgrade pip
           pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib requests pandas beautifulsoup4
 
       - name: Execute Real Data Fetch & GDrive Upload
@@ -34,7 +35,6 @@ jobs:
 
           print('🚀 [Cloud Engine] Generating fresh raw dataset...')
           
-          # 1. Ek dummy data file banate hain (Asli data file)
           filename = 'Rohit_AI_Raw_Data_Master.txt'
           with open(filename, 'w', encoding='utf-8') as f:
               f.write('=== ROHIT-AI COLLECTOR MASTER DATA ===\n')
